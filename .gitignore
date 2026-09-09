@@ -1,0 +1,38 @@
+# Ambientes Virtuais
+.venv/
+venv/
+env/
+ENV/
+
+# Python cache & bytecode
+__pycache__/
+*.py[cod]
+*.class
+*.so
+
+# Testes e Cobertura
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Linters e Ferramentas
+.ruff_cache/
+.mypy_cache/
+
+# Jupyter / IPython
+.ipynb_checkpoints
+
+# IDEs e Editores
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# SO
+.DS_Store
+Thumbs.db
+
+# Dados gerados
+data/processed/*.tmp
+!data/raw/customer_transactions.csv
+!data/processed/rfm_features.parquet
