@@ -193,7 +193,8 @@ st.markdown(
     }
 
     /* Form Controls Dark Override */
-    div[data-baseweb="select"] > div {
+    /* Custom select styling disabled in favor of native dark theme */
+    .custom-select-placeholder {
         background-color: #111827 !important;
         border-color: #1f2937 !important;
         color: #f8fafc !important;
@@ -424,30 +425,50 @@ with tab_clusters:
     )
 
     # Interactive Controls Bar
-    ctrl_col1, ctrl_col2, ctrl_col3 = st.columns([2, 1, 1])
-    with ctrl_col1:
-        selected_personas = st.multiselect(
-            "Filtrar Personas no Gráfico:",
-            options=list(COLOR_MAP.keys()),
-            default=list(COLOR_MAP.keys()),
+    c_filter, c_view, c_log = st.columns([1.6, 1.4, 0.9])
+    with c_filter:
+        persona_choices = {
+            "Todos os Segmentos (3.000 clientes)": "all",
+            "🟢 Champions VIPs (420)": "Champions / Clientes VIPs",
+            "🔵 Potenciais Leais (869)": "Potenciais Leais",
+            "🔴 Em Risco Alto (540)": "Em Risco Alto (Ticket Alto)",
+            "🟡 Hibernando (1.171)": "Hibernando / Baixo Engajamento",
+        }
+        selected_label = st.selectbox(
+            "Filtrar por Segmento:",
+            options=list(persona_choices.keys()),
+            index=0,
+            help="Selecione um segmento para isolar ou visualize todos em conjunto.",
         )
-    with ctrl_col2:
+        selected_filter = persona_choices[selected_label]
+
+    with c_view:
         view_mode = st.selectbox(
-            "Modo de Visualização:",
+            "Perspectiva de Análise:",
             [
                 "2D: Frequência vs Faturamento (R$)",
                 "2D: Recência (dias) vs Frequência",
                 "3D: Espaço Tridimensional RFM",
             ],
+            help="Alterne entre as diferentes dimensões da matriz RFM.",
         )
-    with ctrl_col3:
-        use_log_y = st.toggle("Escala Logarítmica (Monetário)", value=False)
+
+    with c_log:
+        st.markdown("<div style='height: 28px;'></div>", unsafe_allow_html=True)
+        use_log_y = st.toggle(
+            "Escala Log (R$)",
+            value=False,
+            help="Melhora a dispersão de clientes com menor volume financeiro.",
+        )
 
     # Filter dataframe based on persona selection
-    df_filtered = df_rfm[df_rfm["persona_name"].isin(selected_personas)]
+    if selected_filter == "all":
+        df_filtered = df_rfm
+    else:
+        df_filtered = df_rfm[df_rfm["persona_name"] == selected_filter]
 
     if df_filtered.empty:
-        st.warning("Selecione ao menos uma persona para visualizar os dados.")
+        st.warning("Nenhum cliente encontrado para o filtro selecionado.")
     else:
         if view_mode == "2D: Frequência vs Faturamento (R$)":
             fig_scatter = px.scatter(
