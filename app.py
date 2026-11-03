@@ -131,25 +131,7 @@ st.markdown(
     .badge-amber { background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); }
     .badge-indigo { background: rgba(129, 140, 248, 0.15); color: #a5b4fc; border: 1px solid rgba(129, 140, 248, 0.3); }
 
-    /* Modern Styled Tabs with Pulsing Notification Dots */
-    @keyframes pulse-tab-dot {
-        0% {
-            transform: scale(0.90);
-            opacity: 0.80;
-            box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.7);
-        }
-        70% {
-            transform: scale(1.18);
-            opacity: 1;
-            box-shadow: 0 0 0 6px rgba(56, 189, 248, 0);
-        }
-        100% {
-            transform: scale(0.90);
-            opacity: 0.80;
-            box-shadow: 0 0 0 0 rgba(56, 189, 248, 0);
-        }
-    }
-
+    /* Modern Styled Tabs */
     .stTabs [data-baseweb="tab-list"] {
         gap: 8px !important;
         background-color: transparent !important;
@@ -157,71 +139,32 @@ st.markdown(
         padding-bottom: 6px !important;
         margin-bottom: 22px !important;
     }
-    .stTabs [data-baseweb="tab"] {
+    .stTabs [data-baseweb="tab"],
+    [data-testid="stTabs"] button {
         background-color: #111827 !important;
-        border: 1px solid #1e293b !important;
+        border: 1px solid #1f2937 !important;
         border-radius: 8px 8px 0 0 !important;
         color: #cbd5e1 !important;
         padding: 9px 16px !important;
         font-weight: 600 !important;
-        font-size: 0.86rem !important;
+        font-size: 0.88rem !important;
         cursor: pointer !important;
         transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
-        display: inline-flex !important;
-        align-items: center !important;
     }
-    .stTabs [data-baseweb="tab"]:hover {
+    .stTabs [data-baseweb="tab"]:hover,
+    [data-testid="stTabs"] button:hover {
         background-color: #1e293b !important;
         border-color: #38bdf8 !important;
         color: #f8fafc !important;
         transform: translateY(-2px) !important;
     }
-
-    /* Bolinha de Notificação e Interatividade */
-    .stTabs [data-baseweb="tab"]::before {
-        content: "" !important;
-        display: inline-block !important;
-        width: 8px !important;
-        height: 8px !important;
-        border-radius: 50% !important;
-        margin-right: 8px !important;
-        background-color: #38bdf8 !important;
-        box-shadow: 0 0 8px #38bdf8 !important;
-        animation: pulse-tab-dot 2.2s infinite ease-in-out !important;
-        flex-shrink: 0 !important;
-    }
-
-    /* Cores das bolinhas por aba */
-    .stTabs [data-baseweb="tab"]:nth-child(1)::before {
-        background-color: #10b981 !important;
-        box-shadow: 0 0 8px #10b981 !important;
-    }
-    .stTabs [data-baseweb="tab"]:nth-child(2)::before {
-        background-color: #38bdf8 !important;
-        box-shadow: 0 0 8px #38bdf8 !important;
-    }
-    .stTabs [data-baseweb="tab"]:nth-child(3)::before {
-        background-color: #818cf8 !important;
-        box-shadow: 0 0 8px #818cf8 !important;
-    }
-    .stTabs [data-baseweb="tab"]:nth-child(4)::before {
-        background-color: #f43f5e !important;
-        box-shadow: 0 0 8px #f43f5e !important;
-    }
-    .stTabs [data-baseweb="tab"]:nth-child(5)::before {
-        background-color: #f59e0b !important;
-        box-shadow: 0 0 8px #f59e0b !important;
-    }
-
-    .stTabs [data-baseweb="tab"][aria-selected="true"] {
+    .stTabs [data-baseweb="tab"][aria-selected="true"],
+    [data-testid="stTabs"] button[aria-selected="true"] {
         background: linear-gradient(180deg, #1e293b 0%, #111827 100%) !important;
         border-color: #38bdf8 !important;
         border-bottom: 2px solid #38bdf8 !important;
         color: #38bdf8 !important;
         box-shadow: 0 2px 10px rgba(56, 189, 248, 0.2) !important;
-    }
-    .stTabs [data-baseweb="tab"][aria-selected="true"]::before {
-        box-shadow: 0 0 12px currentColor !important;
     }
 
     /* Action Cards & Info Boxes */
@@ -445,11 +388,11 @@ st.markdown("<div style='height: 12px;'></div>", unsafe_allow_html=True)
 
 # Navigation Tabs
 tab_clusters, tab_elbow, tab_cohort, tab_sim, tab_explorer = st.tabs([
-    "Clusterização RFM",
-    "Validação Cotovelo (k=4)",
-    "Retenção de Cohort",
-    "Simulador de Churn",
-    "Explorador de Base",
+    "🟢 Clusterização RFM",
+    "🔵 Validação Cotovelo (k=4)",
+    "🟣 Retenção de Cohort",
+    "🔴 Simulador de Churn",
+    "🟡 Explorador de Base",
 ])
 
 # Color mapping consistent across the entire platform
