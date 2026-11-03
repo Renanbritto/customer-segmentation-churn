@@ -861,7 +861,7 @@ with tab_sim:
                 ),
                 gauge=dict(
                     axis=dict(range=[0, 100], tickwidth=1, tickcolor="#94a3b8"),
-                    bar=dict(color=risk_color, width=12),
+                    bar=dict(color=risk_color, thickness=0.25),
                     bgcolor="#1e293b",
                     borderwidth=1,
                     bordercolor="#334155",

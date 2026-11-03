@@ -10,8 +10,8 @@ from src.features.rfm import RFMEngine
 @pytest.fixture(scope="session")
 def api_client():
     """Provides a shared FastAPI TestClient instance."""
-    with TestClient(app) as client:
-        yield client
+    client = TestClient(app)
+    yield client
 
 
 @pytest.fixture(scope="session")
