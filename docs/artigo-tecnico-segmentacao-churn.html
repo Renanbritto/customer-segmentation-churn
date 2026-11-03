@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clientes Não Churnam Por Acaso | Renan Nocelli</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-body: #050811;
+            --bg-card: #0b1120;
+            --bg-card-inner: #0f172a;
+            --border-card: rgba(56, 189, 248, 0.15);
+            --border-highlight: rgba(244, 63, 94, 0.35);
+            --text-title: #ffffff;
+            --text-body: #94a3b8;
+            --text-muted: #64748b;
+            --accent-cyan: #38bdf8;
+            --accent-rose: #f43f5e;
+            --accent-emerald: #10b981;
+            --accent-amber: #f59e0b;
+            --accent-indigo: #818cf8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-body);
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.7;
+            padding: 0;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Top Navigation Bar */
+        .navbar {
+            background: rgba(9, 13, 22, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 14px 24px;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 1.25rem;
+            color: #ffffff;
+            letter-spacing: -0.02em;
+        }
+
+        .logo-icon {
+            width: 28px;
+            height: 28px;
+            background: linear-gradient(135deg, #0284c7, #38bdf8);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+        }
+
+        .logo span {
+            color: var(--accent-cyan);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 0.90rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: #ffffff;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .btn-pill {
+            background: #111827;
+            border: 1px solid #1f2937;
+            color: #cbd5e1;
+            padding: 6px 14px;
+            border-radius: 9999px;
+            font-size: 0.80rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .btn-pill:hover {
+            border-color: var(--accent-cyan);
+            color: #ffffff;
+        }
+
+        .btn-whatsapp {
+            background: #10b981;
+            border: 1px solid #059669;
+            color: #ffffff;
+            padding: 6px 16px;
+            border-radius: 9999px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+
+        .btn-whatsapp:hover {
+            opacity: 0.9;
+        }
+
+        /* Main Content Container */
+        .main-wrapper {
+            max-width: 960px;
+            margin: 40px auto 80px auto;
+            padding: 0 20px;
+        }
+
+        .article-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 20px;
+            padding: 56px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45), 0 0 40px rgba(56, 189, 248, 0.04);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .article-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #38bdf8, #f43f5e, transparent);
+        }
+
+        /* Category Tag */
+        .category-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--accent-cyan);
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
+
+        .category-tag svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Typography */
+        h1.article-title {
+            font-size: 2.75rem;
+            font-weight: 800;
+            line-height: 1.18;
+            letter-spacing: -0.03em;
+            color: #ffffff;
+            margin-bottom: 20px;
+        }
+
+        .title-gradient {
+            background: linear-gradient(135deg, #ff4d6d 0%, #f43f5e 50%, #e11d48 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: block;
+        }
+
+        .article-lead {
+            font-size: 1.25rem;
+            font-weight: 600;
+            line-height: 1.5;
+            color: #e2e8f0;
+            margin-bottom: 28px;
+            letter-spacing: -0.01em;
+        }
+
+        .article-p {
+            font-size: 1.02rem;
+            color: #94a3b8;
+            margin-bottom: 24px;
+            line-height: 1.75;
+        }
+
+        .article-p strong {
+            color: #f1f5f9;
+        }
+
+        /* In-text Badges */
+        .tech-badge {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(56, 189, 248, 0.12);
+            color: #38bdf8;
+            border: 1px solid rgba(56, 189, 248, 0.25);
+            border-radius: 6px;
+            padding: 2px 8px;
+            font-size: 0.84rem;
+            font-weight: 600;
+            font-family: 'JetBrains Mono', monospace;
+            vertical-align: middle;
+        }
+
+        .tech-badge.rose {
+            background: rgba(244, 63, 94, 0.12);
+            color: #fb7185;
+            border-color: rgba(244, 63, 94, 0.25);
+        }
+
+        .tech-badge.emerald {
+            background: rgba(16, 185, 129, 0.12);
+            color: #34d399;
+            border-color: rgba(16, 185, 129, 0.25);
+        }
+
+        /* The Analogy / Highlight Box */
+        .highlight-box {
+            background: rgba(244, 63, 94, 0.03);
+            border: 1px solid var(--border-highlight);
+            border-radius: 14px;
+            padding: 28px 32px;
+            margin: 36px 0;
+            position: relative;
+        }
+
+        .highlight-title {
+            color: var(--accent-cyan);
+            font-size: 0.85rem;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .highlight-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .highlight-item {
+            position: relative;
+            padding-left: 20px;
+            font-size: 0.96rem;
+            line-height: 1.6;
+            color: #cbd5e1;
+        }
+
+        .highlight-item::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--accent-rose);
+            font-size: 1.4rem;
+            line-height: 1;
+            top: -2px;
+        }
+
+        .highlight-item strong {
+            color: #ffffff;
+            font-weight: 700;
+        }
+
+        /* Metric Grid */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin: 36px 0;
+        }
+
+        .kpi-card {
+            background: var(--bg-card-inner);
+            border: 1px solid #1e293b;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: left;
+        }
+
+        .kpi-number {
+            font-size: 1.85rem;
+            font-weight: 800;
+            color: #ffffff;
+            font-family: 'JetBrains Mono', monospace;
+            line-height: 1.1;
+            margin-bottom: 6px;
+        }
+
+        .kpi-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: #64748b;
+            margin-bottom: 4px;
+        }
+
+        .kpi-sub {
+            font-size: 0.78rem;
+            color: var(--accent-cyan);
+        }
+
+        /* Personas Matrix Table */
+        .table-container {
+            background: var(--bg-card-inner);
+            border: 1px solid #1e293b;
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 32px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.90rem;
+            text-align: left;
+        }
+
+        th {
+            background: #111827;
+            color: #94a3b8;
+            padding: 14px 18px;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            border-bottom: 1px solid #1e293b;
+        }
+
+        td {
+            padding: 16px 18px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            color: #cbd5e1;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* CTA Section */
+        .cta-box {
+            background: linear-gradient(180deg, #131d33 0%, #0c1222 100%);
+            border: 1px solid rgba(56, 189, 248, 0.25);
+            border-radius: 14px;
+            padding: 32px;
+            text-align: center;
+            margin-top: 48px;
+        }
+
+        .cta-title {
+            font-size: 1.35rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+
+        .cta-p {
+            font-size: 0.95rem;
+            color: #94a3b8;
+            margin-bottom: 24px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #0284c7, #38bdf8);
+            color: #050811;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 0.92rem;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 14px rgba(56, 189, 248, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(56, 189, 248, 0.45);
+        }
+
+        .btn-secondary {
+            background: #111827;
+            border: 1px solid #1f2937;
+            color: #f1f5f9;
+            padding: 12px 22px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.92rem;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .btn-secondary:hover {
+            border-color: #38bdf8;
+            background: #1e293b;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 32px 0;
+            text-align: center;
+            font-size: 0.85rem;
+            color: #64748b;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .article-card {
+                padding: 28px 20px;
+            }
+            h1.article-title {
+                font-size: 1.95rem;
+            }
+            .kpi-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navbar -->
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="https://renannocelli.com.br" class="logo">
+                <div class="logo-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="20" x2="18" y2="10"></line>
+                        <line x1="12" y1="20" x2="12" y2="4"></line>
+                        <line x1="6" y1="20" x2="6" y2="14"></line>
+                    </svg>
+                </div>
+                Renan<span>Nocelli</span>
+            </a>
+
+            <ul class="nav-links">
+                <li><a href="https://renannocelli.com.br">Início</a></li>
+                <li><a href="https://renannocelli.com.br/#sobre">Sobre</a></li>
+                <li><a href="https://renannocelli.com.br/#projetos" class="active">Projetos</a></li>
+                <li><a href="https://renannocelli.com.br/postagens">Postagens</a></li>
+                <li><a href="https://renannocelli.com.br/#contato">Contato</a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <div class="btn-pill">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </div>
+                <div class="btn-pill">PT | EN</div>
+                <a href="https://wa.me/5500000000000" class="btn-whatsapp" target="_blank">
+                    WhatsApp
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-wrapper">
+        <article class="article-card">
+            
+            <!-- Category Tag -->
+            <div class="category-tag">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14 2 14 8 20 8"></polyline>
+                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                    <polyline points="10 9 9 9 8 9"></polyline>
+                </svg>
+                DOCUMENTAÇÃO & ARTIGO TÉCNICO
+            </div>
+
+            <!-- Title Header -->
+            <h1 class="article-title">
+                Cliente Não Churna Por Acaso,
+                <span class="title-gradient">Churna Por Falta de Modelagem Preditiva</span>
+            </h1>
+
+            <!-- Lead Subtitle -->
+            <p class="article-lead">
+                O que acontece quando o marketing para de queimar cupom às cegas e cruza a Matriz RFM com K-Means e Curvas de Sobrevivência de Cohort.
+            </p>
+
+            <!-- Body Paragraphs -->
+            <p class="article-p">
+                Toda empresa adora falar em <strong>fidelização sustentável</strong> e <em>Customer Centricity</em>. Mas quando um cliente com LTV histórico de R$ 10.000 entra em inatividade prolongada, a desculpa no comitê de receitas é sempre a mesma: <em>"o mercado esfriou"</em>, <em>"o cliente cortou orçamento"</em> ou <em>"o concorrente deu desconto predatório"</em>. Bastam poucas linhas de <span class="tech-badge">Python</span>, engenharia de features <span class="tech-badge">RFM (Recência, Frequência e Valor)</span> e clusterização não-supervisionada via <span class="tech-badge">Scikit-Learn K-Means</span> para provar que a evasão já estava contratada há pelo menos 60 dias.
+            </p>
+
+            <!-- The Analogy Box (Visual idêntico ao print) -->
+            <section class="highlight-box">
+                <div class="highlight-title">
+                    A ANALOGIA DO PONTO DE NÃO-RETORNO
+                </div>
+                <ul class="highlight-list">
+                    <li class="highlight-item">
+                        <strong>Se um cliente esporádico passa 30 dias sem comprar</strong>, você gerencia aquele intervalo como ciclo natural de recompra e programa uma régua branda de nutrição.
+                    </li>
+                    <li class="highlight-item">
+                        <strong>Se contas com ticket histórico elevado (R$ 6.800+) acumulam recência superior a 78 dias</strong>, o problema nunca foi esquecimento: o modelo matemático comprova um risco de churn de <strong>68,4%</strong>, e a janela de intervenção executiva do Customer Success está a dias de se fechar.
+                    </li>
+                    <li class="highlight-item">
+                        <strong>No corporativo é igual:</strong> tentar reverter clientes inativos no M6 com cupons de e-mail é enxugar gelo quando a operação continua tratando a base inteira com médias simples em vez de monitorar o <strong>D-Day (a data exata em que o cliente atinge a probabilidade irreversível de evasão)</strong>.
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Metrics Highlight -->
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-label">Base Analisada</div>
+                    <div class="kpi-number">3.000</div>
+                    <div class="kpi-sub">Clientes corporativos</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Ponto Ótimo (k)</div>
+                    <div class="kpi-number" style="color: var(--accent-cyan);">k = 4</div>
+                    <div class="kpi-sub">Método do Cotovelo</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Silhouette Score</div>
+                    <div class="kpi-number" style="color: var(--accent-emerald);">0.68</div>
+                    <div class="kpi-sub">Alta separabilidade</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Retenção M6 VIP</div>
+                    <div class="kpi-number" style="color: #38bdf8;">94.0%</div>
+                    <div class="kpi-sub">vs 9.0% Hibernando</div>
+                </div>
+            </div>
+
+            <!-- Strategic Content Section -->
+            <h2 style="color: #ffffff; font-size: 1.6rem; font-weight: 700; margin: 38px 0 16px 0; letter-spacing: -0.02em;">
+                Da Ingestão Transacional à Decisão Operacional
+            </h2>
+
+            <p class="article-p">
+                O maior erro de iniciativas de CRM tradicionais é aplicar regras estáticas baseadas em intuição. Ao normalizar o comportamento de <strong>Recência</strong> ($R$), <strong>Frequência</strong> ($F$) e <strong>Monetário</strong> ($M$) via transformação logarítmica e padronização Z-Score, eliminamos o viés de assimetria à direita típico de compras corporativas.
+            </p>
+
+            <p class="article-p">
+                A aplicação do algoritmo <span class="tech-badge">K-Means</span> particionou a base em 4 personas estritamente delimitadas, cada uma exigindo um playbook comercial oposto:
+            </p>
+
+            <!-- Personas Table -->
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Persona Mapeada</th>
+                            <th>Volume</th>
+                            <th>Recência Média</th>
+                            <th>Ticket Médio</th>
+                            <th>Taxa Churn</th>
+                            <th>Playbook Estratégico CRM</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong style="color: #34d399;">Champions VIPs</strong></td>
+                            <td>14.0%</td>
+                            <td>4 dias</td>
+                            <td>R$ 10.330</td>
+                            <td><span class="tech-badge emerald">3.2%</span></td>
+                            <td>Atendimento Concierge, conselho de produto e upsell prioritário.</td>
+                        </tr>
+                        <tr>
+                            <td><strong style="color: #38bdf8;">Potenciais Leais</strong></td>
+                            <td>29.0%</td>
+                            <td>18 dias</td>
+                            <td>R$ 5.530</td>
+                            <td><span class="tech-badge">12.5%</span></td>
+                            <td>Migração para plano anual e programas de expansão de licenças.</td>
+                        </tr>
+                        <tr>
+                            <td><strong style="color: #fb7185;">Em Risco Alto</strong></td>
+                            <td>18.0%</td>
+                            <td>78 dias</td>
+                            <td>R$ 6.880</td>
+                            <td><span class="tech-badge rose">68.4%</span></td>
+                            <td>Intervenção imediata de CS executivo e auditoria de insatisfação.</td>
+                        </tr>
+                        <tr>
+                            <td><strong style="color: #fbbf24;">Hibernando</strong></td>
+                            <td>39.0%</td>
+                            <td>142 dias</td>
+                            <td>R$ 1.190</td>
+                            <td><span class="tech-badge rose">89.0%</span></td>
+                            <td>Régua automatizada de baixo custo ou exclusão imediata de CAC.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p class="article-p">
+                O diferencial da plataforma foi transformar essa inteligência matemática em uma <strong>camada de produção pronta para o negócio</strong>: uma API RESTful em <span class="tech-badge">FastAPI</span> com contratos validados via Pydantic v2 e um Dashboard Executivo em <span class="tech-badge">Streamlit + Plotly</span> com simulador preditivo de churn em tempo real.
+            </p>
+
+            <!-- Call to Action -->
+            <div class="cta-box">
+                <div class="cta-title">Explore a Aplicação em Produção</div>
+                <p class="cta-p">
+                    Acesse o dashboard interativo no Streamlit Cloud ou inspecione o código-fonte completo, testes automatizados e pipeline de CI/CD no repositório.
+                </p>
+                <div class="cta-buttons">
+                    <a href="https://customer-segmentation-churn-kjq4smqhbsen5qeklwgcbm.streamlit.app" target="_blank" class="btn-primary">
+                        Abrir Dashboard Interativo
+                    </a>
+                    <a href="https://github.com/Renanbritto/customer-segmentation-churn" target="_blank" class="btn-secondary">
+                        Ver Código no GitHub
+                    </a>
+                </div>
+            </div>
+
+        </article>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2026 Renan Nocelli • Engenharia de Dados & Machine Learning • renannocelli.com.br</p>
+    </footer>
+
+</body>
+</html>
