@@ -5,6 +5,14 @@ Elbow & Silhouette validation, Cohort Retention Curves, and Churn Risk Simulator
 Strictly adheres to executive aesthetics and corporate dark theme.
 """
 
+import sys
+from pathlib import Path
+
+# Ensure repository root is in sys.path for Streamlit Cloud deployment
+ROOT_DIR = Path(__file__).resolve().parent
+if str(ROOT_DIR) not in sys.path:
+    sys.path.insert(0, str(ROOT_DIR))
+
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
@@ -22,7 +30,7 @@ from src.models.kmeans import KMeansSegmentation
 # Streamlit Page Configuration
 st.set_page_config(
     page_title="Customer Intelligence & Churn Prevention",
-    page_icon="bar-chart",
+    page_icon="📊",
     layout="wide",
     initial_sidebar_state="expanded",
 )
@@ -293,10 +301,10 @@ def load_data() -> pd.DataFrame:
 
 
 @st.cache_resource
-def get_fitted_kmeans(df: pd.DataFrame) -> KMeansSegmentation:
+def get_fitted_kmeans(_df: pd.DataFrame) -> KMeansSegmentation:
     """Caches fitted KMeans pipeline to avoid re-fitting during user interactions."""
     km_engine = KMeansSegmentation(n_clusters=4, random_state=42)
-    km_engine.fit(df)
+    km_engine.fit(_df)
     return km_engine
 
 
